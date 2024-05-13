@@ -1,0 +1,104 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Shortcut Icon" href="http://web.yunduanjianzhan.cn/images/logos/favicon.ico" type="image/x-icon" />
+   <title>活动列表</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.activity {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.activity-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.activity-description {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.activity-link {
+    font-size: 14px;
+    color: #007BFF;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+</style>
+
+    <h1>活动列表</h1>
+    <div id="activities-container">
+        <!-- 活动数据将在此处显示 -->
+    </div>
+   <script>
+// 获取活动数据
+// 获取活动数据
+async function fetchActivities() {
+    const url = 'activities.json';
+    const response = await fetch(url);
+    const activities = await response.json();
+    return activities;
+}
+
+// 将活动数据插入到HTML中
+async function displayActivities() {
+    const activitiesContainer = document.getElementById("activities-container");
+    const activities = await fetchActivities();
+
+    activities.forEach(activity => {
+        const activityDiv = document.createElement("div");
+        activityDiv.className = "activity";
+
+        const activityName = document.createElement("div");
+        activityName.className = "activity-name";
+        activityName.textContent = activity.name;
+
+        const activityDescription = document.createElement("div");
+        activityDescription.className = "activity-description";
+        activityDescription.textContent = activity.description;
+
+        const activityLink = document.createElement("a");
+        activityLink.className = "activity-link";
+        activityLink.href = activity.link;
+        activityLink.textContent = "查看详情";
+
+        activityDiv.appendChild(activityName);
+        activityDiv.appendChild(activityDescription);
+        activityDiv.appendChild(activityLink);
+
+        activitiesContainer.appendChild(activityDiv);
+    });
+}
+
+console.log("")
+
+
+// 在页面加载时显示活动数据
+displayActivities();
+
+   </script>
+</body>
+</html>
